@@ -15,9 +15,7 @@ markup.row(btn1, btn2)
 
 @bot.message_handler(commands = ['start', 'help'])
 def start(message):
-    current_work_directory = os.getcwd()
-    abs_work_directory = os.path.abspath(current_work_directory)
-    file = open("abs_work_directory/%s.txt"%message.chat.id,"a")
+    file = open("/home/ubuntu/Miras_Hafsa/%s.txt"%message.chat.id,"a")
     print(message.chat.first_name)
     bot.send_message(message.chat.id, START%(message.chat.first_name), reply_markup = markup)
     file.close()
@@ -32,9 +30,9 @@ def add_day(message):
 @bot.message_handler(func = lambda message: message.text == "TIMETABLE👐")
 def show_task(message):
     bot.send_message(message.chat.id,SHOW)
-    current_work_directory = os.getcwd()
-    abs_work_directory = os.path.abspath(current_work_directory)
-    file = open("abs_work_directory/%s.txt"%message.chat.id, "r")
+#     current_work_directory = os.getcwd()
+#     abs_work_directory = os.path.abspath(current_work_directory)
+    file = open("/home/ubuntu/Miras_Hafsa/%s.txt"%message.chat.id, "r")
     s = file.read()
     if s.isspace() == False:
         bot.send_message(message.chat.id, s)
@@ -44,9 +42,7 @@ def show_task(message):
 
 @bot.callback_query_handler(func = lambda c: True)
 def save_day(c):
-    current_work_directory = os.getcwd()
-    abs_work_directory = os.path.abspath(current_work_directory)
-    file = open("abs_work_directory/%s.txt"%c.message.chat.id, "a")
+    file = open("/home/ubuntu/Miras_Hafsa/%s.txt"%c.message.chat.id, "a")
     file.write(c.data + " ")
     file.close()
     bot.edit_message_text(chat_id = c.message.chat.id, message_id = c.message.message_id, text = c.data + '\n'+ TIME,
@@ -82,9 +78,7 @@ def add_time(message):
     if len(message.text.split(':')[0]) == 2 and len(message.text.split(':')[1]) == 2:
         if int(message.text.split(':')[0]) >= 0 and int(message.text.split(':')[0]) < 24:
             if int(message.text.split(':')[1]) >= 0 and int(message.text.split(':')[1]) < 59:
-                current_work_directory = os.getcwd()
-                abs_work_directory = os.path.abspath(current_work_directory)
-                file = open("abs_work_directory/%s.txt"%message.chat.id,"a")
+                file = open("/home/ubuntu/Miras_Hafsa/%s.txt"%message.chat.id,"a")
                 file.write(message.text + " ")
                 file.close()
                 bot.send_message(message.chat.id, TASK)
@@ -93,9 +87,7 @@ def add_time(message):
 
 @bot.message_handler(func = lambda message: 'Task:' in message.text)
 def add_task(message):
-    current_work_directory = os.getcwd()
-    abs_work_directory = os.path.abspath(current_work_directory)
-    file = open("abs_work_directory/%s.txt"%message.chat.id,"a")
+    file = open("/home/ubuntu/Miras_Hafsa/%s.txt"%message.chat.id,"a")
     file.write(message.text.split(':')[1] + "\n")
     file.close()
     bot.send_message(message.chat.id, SAVE, reply_markup = markup)
