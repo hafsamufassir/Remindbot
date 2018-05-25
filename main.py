@@ -15,7 +15,9 @@ markup.row(btn1, btn2)
 
 @bot.message_handler(commands = ['start', 'help'])
 def start(message):
-    file = open("~/Miras_Hafsa/ReminderBot/%s.txt"%message.chat.id,"a")
+    current_work_directory = os.getcwd()
+    abs_work_directory = os.path.abspath(current_work_directory)
+    file = open("abs_work_directory/%s.txt"%message.chat.id,"a")
     print(message.chat.first_name)
     bot.send_message(message.chat.id, START%(message.chat.first_name), reply_markup = markup)
     file.close()
